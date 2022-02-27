@@ -1,0 +1,30 @@
+Create a signup & login mechanism (Different routes for signup and login) 
+
+Create a similar table as shown below using reactJS. 
+Note: Any UI framework like Material UI, AntDesign is not allowed. Assignments using the frameworks for the table and checkbox handling will be rejected. 
+
+Use redux for the data layer setup. It should have the following features  
+
+User should be able to add and delete record
+Records should be sortable by status
+Create a filter dropdown that supports a multi-select checkbox. Please handle select all scenarios(if user click select all, all checkbox should be clicked and removing any one of checkbox should uncheck select all )
+
+
+
+
+
+
+
+Create a Modal to add members 
+
+
+5. Bonus points 
+
+On auto login after signup 
+On using an online backend service to store the data 
+
+6. Create a public repository for this assignment to push the changes and mail it to us. You can mail the solution to gopi.malla@delta.exchange and cc suraj.kawale@delta.exchange. 
+
+
+
+ALL THE BEST :) 

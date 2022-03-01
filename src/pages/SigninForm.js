@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import { BrowserRouter, Link } from 'react-router-dom'
 
+import makePostRequest from '../axios-requests/signin.js'
+
 const SigninForm = () => {
 
     const [state, setState] = useState({
@@ -25,8 +27,10 @@ const SigninForm = () => {
 
         console.log("current state:", state)
 
-        // axios post request to register user 
+        // should use get method to check if user is valid then login here ...
 
+        // axios post request to register user - (change this for post request while signin in for user)
+        makePostRequest({ "email": state.email, "password": state.password })
     }
 
     return (

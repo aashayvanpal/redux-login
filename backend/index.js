@@ -1,13 +1,33 @@
-const mongoose = require('mongoose')
+const express = require('express')
+const app = express()
+const cors = require('cors')
+var bodyParser = require('body-parser');
+const db = require('./connection.js')
 
-mongoose.connect('mongodb://127.0.0.1:27017/redux-login', { useNewUrlParser: true })
-    .then(() => {
-        console.log('db connection successfully to redux-login ')
-    })
-    .catch(err => {
-        console.error('Connection error :', e.message)
-    })
+app.use(cors())
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-const db = mongoose.connection
+db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
-module.exports = db
+// Routes 
+
+app.get('/signin', function (req, res) {
+    // console.log('req.body :', req.body)
+    // db.collection('users').insertOne(req.body);
+    res.send('User found successfully!');
+})
+
+
+app.post('/signup', function (req, res) {
+    // console.log('req.body :', req.body)
+    db.collection('users').insertOne(req.body);
+    res.send('User data saved successfully!');
+})
+
+app.get('/', (req, res) => {
+    res.send('hi!')
+})
+app.listen(3001, function () {
+    console.log('listening to port :', 3001)
+})

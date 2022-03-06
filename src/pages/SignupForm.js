@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import { BrowserRouter, Link } from 'react-router-dom'
+import makePostRequest from '../axios-requests/signup.js'
+
 
 const SignupForm = () => {
 
@@ -9,6 +11,7 @@ const SignupForm = () => {
         phonenumber: "",
         password: "",
         confirmpassword: "",
+        userType: ''
     })
 
 
@@ -29,6 +32,13 @@ const SignupForm = () => {
         console.log("current state:", state)
 
         // axios post request to register user 
+        makePostRequest({
+            name: state.name,
+            email: state.email,
+            phonenumber: state.phonenumber,
+            password: state.password,
+            userType: state.userType,
+        })
 
     }
 
@@ -50,6 +60,13 @@ const SignupForm = () => {
 
                 <label htmlFor="confirmpassword">Confirm password</label><br />
                 <input id="confirmpassword" type="password" name="confirmpassword" onChange={(e) => handleChange(e)} /><br />
+
+                <select name="userType" id="userType" onChange={(e) => handleChange(e)}>
+                    <option value="--" defaultValue={"--"}>--</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Customer">Customer</option>
+                    <option value="Company">Company</option>
+                </select>
 
                 <input type="submit" />
             </form>

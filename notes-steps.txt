@@ -1,0 +1,3 @@
+Create a signup & login mechanism (Different routes for signup and login) 
+1. creating mongoose modal for user data
+2. sign up and store in DB

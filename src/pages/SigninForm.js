@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import { BrowserRouter, Link } from 'react-router-dom'
-
+import { useDispatch, useSelector } from "react-redux"
+import { login } from '../actions/login'
 // import makePostRequest from '../axios-requests/signup.js'
 
 const SigninForm = () => {
-
+    const dispatch = useDispatch()
     const [state, setState] = useState({
         email: "",
         password: "",
@@ -29,6 +30,7 @@ const SigninForm = () => {
 
         // should use get method to check if user is valid then login here ...
 
+        dispatch(login({ email: state.email, password: state.password }))
         // axios post request to register user - (change this for post request while signin in for user)
         // makePostRequest({ "email": state.email, "password": state.password })
     }
@@ -43,8 +45,7 @@ const SigninForm = () => {
                 <label htmlFor="password">password</label><br />
                 <input id="password" type="password" name="password" onChange={(e) => handleChange(e)} /><br />
 
-                <label for="userType">User-Type:</label>
-
+                <input type="submit" />
             </form>
 
             Don't have an account ? <Link to={"/signup"}>Sign Up</Link>

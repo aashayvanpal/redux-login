@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import addMember from '../actions/addMember.js'
+import { getMembersAction, addMember } from '../actions/Member.js'
 import { getMembers } from '../axios-requests/Member.js'
 import '../css/HomePage.css'
 
@@ -33,6 +33,8 @@ const HomePage = () => {
         getMemberData()
     }, [])
 
+
+
     const dispatch = useDispatch()
     function openModalContainer() {
 
@@ -57,7 +59,7 @@ const HomePage = () => {
         console.log("current state:", state)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         console.log('handlesubmit clicked')
 
@@ -71,9 +73,13 @@ const HomePage = () => {
         }
 
         console.log("data to post:", data)
-        dispatch(addMember(data))
-        console.log("dispached")
-        // getMembers()
+        setState({ members: [...state.members, data] })
+        await dispatch(addMember(data))
+        console.log("dispached addmembers post request")
+        await getMemberData()
+        console.log("dispached getMembers request")
+        closeModalContainer()
+
 
         // axios post request to register user - (change this for post request while signin in for user)
         // makePostRequest({ "email": state.email, "password": state.password })
@@ -84,7 +90,10 @@ const HomePage = () => {
             <div className='modal-container'>
 
                 <h1>add members</h1>
-                <form onSubmit={(e) => { handleSubmit(e) }}>
+                <form onSubmit={(e) => {
+                    handleSubmit(e)
+
+                }}>
                     <label htmlFor="name">Name</label><br />
                     <input id="name" name="name" onChange={(e) => handleChange(e)} /><br />
 
@@ -122,7 +131,7 @@ const HomePage = () => {
             <table>
                 <thead>
                     <tr>
-                        <td></td>
+                        <td>checkbox</td>
                         <td>Name</td>
                         <td>Company</td>
                         <td>Status</td>
@@ -133,13 +142,13 @@ const HomePage = () => {
                 </thead>
                 <tbody>
                     {
-                        state.members.map(member => {
-                            return <tr key={member._id}>
-                                <td></td>
+                        state.members.map((member, i) => {
+                            return <tr key={i}>
+                                <td>checkbox</td>
                                 <td>{member.name}</td>
                                 <td>{member.company}</td>
                                 <td>{member.status}</td>
-                                <td>{member.status}</td>
+                                <td>last updated</td>
                                 <td>{member.notes}</td>
                                 <td>Delete</td>
                             </tr>

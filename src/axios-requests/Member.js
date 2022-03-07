@@ -16,6 +16,7 @@ export const getMembers = async function getMember() {
 
     // let data = res.data
     // console.log('res.data : ', res.data)
+    
     return (res.data)
 }
 

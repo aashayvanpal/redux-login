@@ -11,3 +11,10 @@ export const getMembersAction = () => {
         type: 'GET_MEMBERS',
     }
 }
+
+export const deleteMemberAction = (id) => {
+    return {
+        type: 'DELETE_MEMBER',
+        payload: id
+    }
+}

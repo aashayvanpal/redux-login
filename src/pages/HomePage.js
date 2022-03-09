@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getMembersAction, addMember } from '../actions/Member.js'
+import { addMember, deleteMemberAction } from '../actions/Member.js'
 import { getMembers } from '../axios-requests/Member.js'
 import '../css/HomePage.css'
 
@@ -45,7 +45,7 @@ const HomePage = () => {
 
     function closeModalContainer() {
 
-        console.log('inside modal')
+        console.log('inside close modal')
         const modal = document.getElementsByClassName('modal-container')
         modal[0].style.display = 'none'
     }
@@ -59,7 +59,7 @@ const HomePage = () => {
         console.log("current state:", state)
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         console.log('handlesubmit clicked')
 
@@ -74,15 +74,17 @@ const HomePage = () => {
 
         console.log("data to post:", data)
         setState({ members: [...state.members, data] })
-        await dispatch(addMember(data))
+        dispatch(addMember(data))
         console.log("dispached addmembers post request")
-        await getMemberData()
-        console.log("dispached getMembers request")
         closeModalContainer()
 
+    }
 
-        // axios post request to register user - (change this for post request while signin in for user)
-        // makePostRequest({ "email": state.email, "password": state.password })
+    const deleteMember = (id) => {
+        console.log('deleting this id :', id)
+        dispatch(deleteMemberAction(id))
+        setState({ members: state.members.filter(member => member._id !== id) })
+
     }
 
     return (
@@ -150,14 +152,15 @@ const HomePage = () => {
                                 <td>{member.status}</td>
                                 <td>last updated</td>
                                 <td>{member.notes}</td>
-                                <td>Delete</td>
+                                <td><button onClick={() => deleteMember(member._id)}
+                                >Delete</button></td>
                             </tr>
                         })
                     }
 
                 </tbody>
             </table>
-        </div>
+        </div >
     )
 }
 

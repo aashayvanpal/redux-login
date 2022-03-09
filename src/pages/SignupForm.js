@@ -39,7 +39,7 @@ const SignupForm = () => {
             password: state.password,
             userType: state.userType,
         })
-
+        window.location.href = 'signin'
     }
 
     return (
